@@ -4,6 +4,14 @@ const ul = document.getElementById('todo_ul');
 btn.addEventListener('click', function () {
     let text = document.getElementById('input_todo').value;
     ul.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
+
+
+    if (text.trim() !== '') {
+        ul.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
+        clearText(); // テキストボックスをクリアする
+    } else {
+        alert('テキストボックスが空です。');
+    }
 }, false);
 
 function clearText() {
