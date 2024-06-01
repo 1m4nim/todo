@@ -7,9 +7,10 @@
 </head>
 <body>
     <h1>ナニヤル</h1>
-    <form action="confirmInput" method="post">
-        <input type="text" id="textInput" name="text" placeholder="テキストを入力" required>
-        <button type="submit">送信</button>
+    <form id="myForm">
+        <label for="confirmInput">Confirm:</label>
+        <input type="text" id="confirmInput" name="confirm">
+        <button type="submit">Submit</button>
     </form>
       
     <div id="confirmOutput"></div>
