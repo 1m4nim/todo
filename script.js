@@ -1,9 +1,12 @@
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // フォームのデフォルトの送信動作をキャンセル
-            
-    // 入力された値を取得
-    const confirmValue = document.getElementById('confirmInput').value;
+const btn = document.getElementById('todo_btn');
+const ul = document.getElementById('todo_ul');
 
-    // 取得した値を表示
-    document.getElementById('confirmOutput').innerText = confirmValue;
-});
+btn.addEventListener('click', function () {
+    let text = document.getElementById('input_todo').value;
+    ul.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
+}, false);
+
+function clearText() {
+    var textForm = document.getElementById("input_todo");
+    textForm.value = "";
+}

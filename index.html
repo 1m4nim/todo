@@ -7,14 +7,16 @@
 </head>
 <body>
     <h1>ナニヤル</h1>
-    <form id="myForm">
-        <label for="confirmInput">Confirm:</label>
-        <input type="text" id="confirmInput" name="confirm">
-        <button type="submit">Submit</button>
-    </form>
-      
-    <div id="confirmOutput"></div>
-      
-    <script src="script.js"></script>
+    <h2>TODO：</h2>
+  
+    
+    <input type="text" id="input_todo" placeholder="テキストを入力" required></textarea>
+    <div class="btn_wrapper"><button id="todo_btn">追加</button></div>
+    <div><input class="clear" type="button" value="クリア" onclick="clearText()" /></div>
+    <ul id="todo_ul" class="standard">
+        <li>(例)りんご買う</li>
+    </ul>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
