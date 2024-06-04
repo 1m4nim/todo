@@ -1,20 +1,3 @@
-const btn = document.getElementById('todo_btn');
-const ul = document.getElementById('todo_ul');
-
-//list-delete
-function addDeleteButton(li) {
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "完了！";
-    deleteButton.classList.add("delete-btn");
-    deleteButton.addEventListener("click", function () {
-        li.remove();
-    });
-    li.appendChild(deleteButton);
-}
-
-
-
-
 // script.js
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -22,7 +5,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // TODO追加機能
-document.getElementById('todo_btn').addEventListener('click', function () {
+document.getElementById('todo_btn').addEventListener('click', addTodo);
+
+// エンターキーでTODO追加
+document.getElementById('input_todo').addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+        addTodo();
+    }
+});
+
+function addTodo() {
     const inputTodo = document.getElementById('input_todo');
     const todoUl = document.getElementById('todo_ul');
 
@@ -42,7 +34,7 @@ document.getElementById('todo_btn').addEventListener('click', function () {
         inputTodo.value = "";
         saveLists();
     }
-});
+}
 
 function clearText() {
     document.getElementById('input_todo').value = "";
@@ -107,28 +99,21 @@ function loadLists() {
     if (todoItems.length === 0 && doneItems.length === 0) {
         const exampleItem = document.createElement('li');
         exampleItem.textContent = '(例)りんご買う';
-
-        // 完了ボタンを追加
-        const doneButton = document.createElement('button');
-        doneButton.textContent = '完了！';
-        doneButton.addEventListener('click', function () {
-            moveToDone(exampleItem);
-        });
-        exampleItem.appendChild(doneButton);
-
         todoUl.appendChild(exampleItem);
     } else {
         todoItems.forEach(text => {
             const newLi = document.createElement('li');
             newLi.textContent = text;
 
-            // 完了ボタンを追加
-            const doneButton = document.createElement('button');
-            doneButton.textContent = '完了！';
-            doneButton.addEventListener('click', function () {
-                moveToDone(newLi);
-            });
-            newLi.appendChild(doneButton);
+            // 例のアイテム以外に完了ボタンを追加
+            if (text !== '(例)りんご買う') {
+                const doneButton = document.createElement('button');
+                doneButton.textContent = '完了！';
+                doneButton.addEventListener('click', function () {
+                    moveToDone(newLi);
+                });
+                newLi.appendChild(doneButton);
+            }
 
             todoUl.appendChild(newLi);
         });
