@@ -15,25 +15,56 @@ function addDeleteButton(li) {
 
 
 
-btn.addEventListener('click', function () {
-    let text = document.getElementById('input_todo').value;
 
+// script.js
 
-    if (text.trim() !== '') {
-        const li = document.createElement("li");
-        li.textContent = text;
-        addDeleteButton(li);
-        ul.appendChild(li);
-        clearText();
-        //ul.insertAdjacentHTML('beforeend', '<li>' + text + '</li>');
-        //clearText(); // テキストボックスをクリアする
-    } else {
-        alert('テキストボックスが空です。');
+// TODO追加機能
+document.getElementById('todo_btn').addEventListener('click', function () {
+    const inputTodo = document.getElementById('input_todo');
+    const todoUl = document.getElementById('todo_ul');
+
+    if (inputTodo.value.trim() !== "") {
+        const newLi = document.createElement('li');
+        newLi.textContent = inputTodo.value;
+
+        // 完了ボタンを追加
+        const doneButton = document.createElement('button');
+        doneButton.textContent = '完了！';
+        doneButton.addEventListener('click', function () {
+            moveToDone(newLi);
+        });
+        newLi.appendChild(doneButton);
+
+        todoUl.appendChild(newLi);
+        inputTodo.value = "";
     }
-}, false);
+});
 
 function clearText() {
-    var textForm = document.getElementById("input_todo");
-    textForm.value = "";
+    document.getElementById('input_todo').value = "";
 }
 
+// TODO項目をやったことリストに移動する関数
+function moveToDone(item) {
+    const doneUl = document.getElementById('done_ul');
+    const doneItem = document.createElement('li');
+    doneItem.textContent = item.childNodes[0].textContent; // 完了ボタンのテキストを削除
+
+    // 日付と時間を追加
+    const date = new Date();
+    const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+    const dateSpan = document.createElement('span');
+    dateSpan.textContent = ` - ${formattedDate}`;
+    doneItem.appendChild(dateSpan);
+
+    // 削除ボタンを追加
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = '削除';
+    deleteButton.addEventListener('click', function () {
+        doneItem.remove();
+    });
+    doneItem.appendChild(deleteButton);
+
+    doneUl.appendChild(doneItem);
+    item.remove(); // TODOリストからアイテムを削除
+}
