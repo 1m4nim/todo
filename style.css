@@ -2,7 +2,6 @@
 
 body{
     background-color: rgb(230, 208, 142);
-    text-align: center;
 }
 
 h1{
@@ -11,9 +10,7 @@ h1{
     text-align: center;
 }
 
-#todo_ul li{
-    color: red;
-}
+
 
 .done h2{
     margin-top: 10%;
