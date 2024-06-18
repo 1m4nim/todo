@@ -1,38 +1,53 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    loadLists();
+    //DOMContentLoadedとloadイベントの違い
+    //前者:HTMLとDOMの構造が完全に読み込まれた後、スタイルシートや画像などのリソースが読み込まれる前に発火
+    //後者: ページ上のすべてのリソース（スタイルシート、画像など）が完全に読み込まれた後に発火
+
+    loadLists();//loadLists関数はローカルストレージからtodoリストと完了リストを読み込んで画面に表示する
 });
 
 // TODO追加機能
 document.getElementById('todo_btn').addEventListener('click', addTodo);
+//追加ボタンが押される(click)ことで、addTodo関数が実行
 
 // エンターキーでTODO追加
 document.getElementById('input_todo').addEventListener('keyup', function (event) {
+    //keyupイベントって離れた時じゃないの？←これが分からない
+
     if (event.key === 'Enter') {
         addTodo();
+        //keyがエンターのときに関数を実行？
     }
 });
 
 function addTodo() {
     const inputTodo = document.getElementById('input_todo');
+    //input_Todoで入力フィールドの値を取得
+
     const todoUl = document.getElementById('todo_ul');
+    //TODOリストの<ul>要素を取得
 
     if (inputTodo.value.trim() !== "") {
+        //入力フィールドが空ではない場合...(trimってなに(刈り取るとからしい))　
+
         const newLi = document.createElement('li');
+        //新しい<li>を作成...
+
         newLi.textContent = inputTodo.value;
+        //テキストに入力フィールドの値を設定
 
         // 完了ボタンを追加
         const doneButton = document.createElement('button');
         doneButton.textContent = '完了！';
         doneButton.addEventListener('click', function () {
-            moveToDone(newLi);
+            moveToDone(newLi);　//完了を押すとmoveToDone関数によってボタンを新しい<li>に追加
         });
         newLi.appendChild(doneButton);
-
-        todoUl.appendChild(newLi);
-        inputTodo.value = "";
-        saveLists();
+        todoUl.appendChild(newLi);//新しい<li>をTODOリストに追加...
+        inputTodo.value = ""; //入力フィールドを空
+        saveLists();//リストを保存
     }
 }
 
@@ -40,7 +55,7 @@ function clearText() {
     document.getElementById('input_todo').value = "";
 }
 
-// TODO項目をやったことリストに移動する関数
+//moveToDoneはTODO項目をやったことリストに移動する関数
 function moveToDone(item) {
     const doneUl = document.getElementById('done_ul');
     const doneItem = document.createElement('li');
